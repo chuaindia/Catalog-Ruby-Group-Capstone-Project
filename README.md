@@ -188,9 +188,9 @@ Example:
 
 👤 **Tanusri Ghosh**
 
-- [GoshGitHub:](https://github.com/chuaindia)
-- [GoshTwitter:] https://twitter.com/chuaghosh@
-- [GoshLinkedIn:] https://linkedin.com/in/tanusrighosh
+- [GitHub:](https://github.com/chuaindia)
+- [Twitter:] https://twitter.com/chuaghosh@
+- [LinkedIn:] https://linkedin.com/in/tanusrighosh
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
