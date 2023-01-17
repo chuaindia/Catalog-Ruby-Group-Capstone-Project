@@ -188,7 +188,7 @@ Example:
 
 👤 **Tanusri Ghosh**
 
-- [GitHub:](https://github.com/chuaindia)
+- [GitHub:] https://github.com/chuaindia
 - [Twitter:] https://twitter.com/chuaghosh@
 - [LinkedIn:] https://linkedin.com/in/tanusrighosh
 
@@ -202,7 +202,6 @@ Example:
 
 - [ ] **Remove a selected Book**
 - [ ] **Add genre to selected Books**
-- [ ] **unit tests**
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
