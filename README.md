@@ -182,9 +182,8 @@ Example:
 
 👤 **Kenny Egun**
 
-- [GitHub:](https://github.com/)
-- [Twitter:](https://twitter.com/)
-- [LinkedIn:](https://www.linkedin.com/in/)
+- [GitHub:](https://github.com/kennyegun24)
+- [LinkedIn:](https://www.linkedin.com/in/kennyegun)
 
 👤 **Tanusri Ghosh**
 
