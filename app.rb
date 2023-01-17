@@ -1,18 +1,4 @@
 class App
-  # def run
-  #   puts options
-  #   user_input = gets.chomp
-
-  #   if user_input <= '12'
-  #     choose_options(user_input)
-  #   elsif user_input == '13'
-  #     puts 'Thanks for using the app!'
-  #   else
-  #     'Please select an option from 1 - 7'
-  #   end
-  # end
-
-
   def options
     puts "
       1 - List of all books
