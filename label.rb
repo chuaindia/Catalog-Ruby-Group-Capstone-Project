@@ -10,6 +10,6 @@ class Label
   end
 
   def add_item(item)
-    @items.push(item) unless @items.include?(item)
+    @items << item unless @items.include?(item)
   end
 end

@@ -63,36 +63,36 @@ class App
     publisher = gets.chomp
     puts "\nWhat is the state of the Cover?\n"
     cover = gets.chomp
-    puts "\nGive date of publication in dd/mm/yy format \n"
+    puts "\nGive date of publication in dd/mm/yyyy format \n"
     date = gets.chomp
     book = Book.new(publisher, cover, date)
-    @books.push(book)
+    @books << book
     puts "\nAdd a label? ---- Enter 1 for 'YES' and 2 for 'NO'\n"
     option = gets.chomp.to_i
     if option == 1
-      puts "\nEnter title of the label\n"
+      puts "\nEnter title of the Book label\n"
       label_title = gets.chomp
-      puts "\nEnter color of the label\n"
+      puts "\nEnter color of the Book label\n"
       label_color = gets.chomp
       label = Label.new(label_title, label_color)
-      @labels.push(label)
+      @labels << label
     end
     save_all_labels_books
   end
 
   def save_all_labels_books
-    bjson = []
+    bookjson = []
     @books.each do |book|
-      bjson.push({ publisher: book.publisher, cover_state: book.cover_state, publish_date: book.publish_date })
+      bookjson << { publisher: book.publisher, cover_state: book.cover_state, publish_date: book.publish_date }
     end
-    bookson = JSON.generate(bjson)
-    File.write('books.json', bookson)
-    ljson = []
+    booksjson = JSON.generate(bookjson)
+    File.write('books.json', booksjson)
+    labeljson = []
     @labels.each do |label|
-      ljson.push({ title: label.title, color: label.color })
+      labeljson << { title: label.title, color: label.color }
     end
-    labson = JSON.generate(ljson)
-    File.write('labels.json', labson)
+    labelsjson = JSON.generate(labeljson)
+    File.write('labels.json', labelsjson)
     #    menu
   end
 
@@ -101,8 +101,8 @@ class App
       bookfile = File.open('books.json')
       bookjson = bookfile.read
       JSON.parse(bookjson).map do |book|
-        boke = Book.new(book['publisher'], book['cover_state'], book['publish_date'])
-        @books.push(boke)
+        booksjson = Book.new(book['publisher'], book['cover_state'], book['publish_date'])
+        @books << booksjson
       end
       bookfile.close
     else
@@ -135,8 +135,8 @@ class App
       labelsfile = File.open('labels.json')
       labeljson = labelsfile.read
       JSON.parse(labeljson).map do |label|
-        labe = Label.new(label['title'], label['color'])
-        @labels.push(labe)
+        labelsjson = Label.new(label['title'], label['color'])
+        @labels << labelsjson
       end
       labelsfile.close
     else
