@@ -188,7 +188,7 @@ Example:
 
 👤 **Tanusri Ghosh**
 
-- [GitHub:](https://github.com/chuaindia)
+- [GitHub:] https://github.com/chuaindia
 - [Twitter:] https://twitter.com/chuaghosh@
 - [LinkedIn:] https://linkedin.com/in/tanusrighosh
 
