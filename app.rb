@@ -1,56 +1,146 @@
+require_relative 'book'
+require_relative 'label'
+
+require 'json'
+
 class App
-  def options
+  def initialize
+    @books = []
+    @labels = []
+    list_of_books_stored
+    list_of_labels_stored
+  end
+
+  def menu
     puts "
       1 - List of all books
       2 - List of all music albums
-      3 - List of all movies
-      4 - List of all games
-      5 - List of all genres
-      6 - List of all labels
-      7 - List of all authors
-      8 - List of all sources
-      9 - create a book
-      10 - create a music album
-      11 - create a movie
-      12 - create a game
-      13 - Exit
+      3 - List of all games
+      4 - List of all genres
+      5 - List of all labels
+      6 - List of all authors
+      7 - create a book
+      8 - create a music album
+      9 - create a game
+      10 - Exit
 	  "
     puts 'Put an option : '
+    action = gets.chomp.to_i
+    if action < 10 && action.positive?
+      select(action)
+    elsif action == 10
+      puts 'Thanks for visiting our App'
+    else
+      menu
+    end
   end
 
-  def choose_options
-    options
-    input = gets.chomp.to_i
-    case input
+  def select(action)
+    case action
     when 1
-      puts 'List of all books:-'
+      list_of_all_books
     when 2
-      puts 'List of all music albums:-'
+      list_of_all_music_albums
     when 3
-      puts 'List of all movies:-'
+      list_of_all_games
     when 4
-      puts 'List of all games:-'
+      list_of_all_genres
     when 5
-      puts 'List of all genres:-'
+      list_of_all_labels
     when 6
-      puts 'List of all labels:-'
+      list_of_all_authors
     when 7
-      puts 'List of all authors:-'
+      create_a_book
     when 8
-      puts 'List of all sources:-'
+      create_a_music_album
     when 9
-      puts 'create a book:-'
-    when 10
-      puts 'create a music album:-'
-    when 11
-      puts 'create a movie:'
-    when 12
-      puts 'create a game:'
-    when 13
-      puts 'Thanks for using our app'
-      exit
+      create_a_game
+    end
+  end
+
+  def create_a_book
+    puts "\nEnter Publisher Name:\n"
+    publisher = gets.chomp
+    puts "\nWhat is the state of the Cover?\n"
+    cover = gets.chomp
+    puts "\nGive date of publication in dd/mm/yy format \n"
+    date = gets.chomp
+    book = Book.new(publisher, cover, date)
+    @books.push(book)
+    puts "\nAdd a label? ---- Enter 1 for 'YES' and 2 for 'NO'\n"
+    option = gets.chomp.to_i
+    if option == 1
+      puts "\nEnter title of the label\n"
+      label_title = gets.chomp
+      puts "\nEnter color of the label\n"
+      label_color = gets.chomp
+      label = Label.new(label_title, label_color)
+      @labels.push(label)
+    end
+    save_all_labels_books
+  end
+
+  def save_all_labels_books
+    bjson = []
+    @books.each do |book|
+      bjson.push({ publisher: book.publisher, cover_state: book.cover_state, publish_date: book.publish_date })
+    end
+    bookson = JSON.generate(bjson)
+    File.write('books.json', bookson)
+    ljson = []
+    @labels.each do |label|
+      ljson.push({ title: label.title, color: label.color })
+    end
+    labson = JSON.generate(ljson)
+    File.write('labels.json', labson)
+    #    menu
+  end
+
+  def list_of_books_stored
+    if File.exist?('books.json') && !File.zero?('books.json')
+      bookfile = File.open('books.json')
+      bookjson = bookfile.read
+      JSON.parse(bookjson).map do |book|
+        boke = Book.new(book['publisher'], book['cover_state'], book['publish_date'])
+        @books.push(boke)
+      end
+      bookfile.close
     else
-      'Put an option between 1 to 13'
+      File.new('books.json', 'w')
+    end
+  end
+
+  def list_of_all_books
+    if @books.empty?
+      puts "\n No books are available"
+    else
+      @books.each do |book|
+        puts "\nPublisher: #{book.publisher} | Cover: #{book.cover_state} | Date of Publication: #{book.publish_date}\n"
+      end
+    end
+    #    menu
+  end
+
+  def list_of_all_labels
+    if @labels.empty?
+      puts "\n No labels are available"
+    else
+      @labels.each { |label| puts "\nLabel name: #{label.title}| color: #{label.color}\n" }
+    end
+    #    menu
+  end
+
+  def list_of_labels_stored
+    if File.exist?('labels.json') && !File.zero?('labels.json')
+      labelsfile = File.open('labels.json')
+      labeljson = labelsfile.read
+      JSON.parse(labeljson).map do |label|
+        labe = Label.new(label['title'], label['color'])
+        @labels.push(labe)
+      end
+      labelsfile.close
+    else
+      File.new('labels.json', 'w')
     end
   end
 end
