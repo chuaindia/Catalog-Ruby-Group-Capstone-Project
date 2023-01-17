@@ -1,6 +1,4 @@
 class App
-
-  
   # def run
   #   puts options
   #   user_input = gets.chomp
@@ -36,8 +34,8 @@ class App
 
   def choose_options
     options
-  input = gets.chomp.to_i
-  case input
+    input = gets.chomp.to_i
+    case input
     when 1
       puts 'List of all books:-'
     when 2
