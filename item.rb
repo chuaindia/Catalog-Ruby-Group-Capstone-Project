@@ -22,4 +22,8 @@ class Item
   def move_to_archive
     @archived = true if can_be_archived?
   end
+
+  def move_to_archive
+
+  end
 end

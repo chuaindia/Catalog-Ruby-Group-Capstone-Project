@@ -1,27 +1,43 @@
 class App
+
+  
+  # def run
+  #   puts options
+  #   user_input = gets.chomp
+
+  #   if user_input <= '12'
+  #     choose_options(user_input)
+  #   elsif user_input == '13'
+  #     puts 'Thanks for using the app!'
+  #   else
+  #     'Please select an option from 1 - 7'
+  #   end
+  # end
+
+
   def options
     puts "
-	1 - List of all books
-	2 - List of all music albums
-    3 - List of all movies
-	4 - List of all games
-	5 - List of all genres
-	6 - List of all labels
-	7 - List of all authors
-	8 - List of all sources
-    9 - create a book
-	10 - create a music album
-	11 - create a movie
-	12 - create a game
-    13 - Exit
-	"
+      1 - List of all books
+      2 - List of all music albums
+      3 - List of all movies
+      4 - List of all games
+      5 - List of all genres
+      6 - List of all labels
+      7 - List of all authors
+      8 - List of all sources
+      9 - create a book
+      10 - create a music album
+      11 - create a movie
+      12 - create a game
+      13 - Exit
+	  "
     puts 'Put an option : '
   end
 
   def choose_options
     options
-    input = gets.chomp.to_i
-    case input
+  input = gets.chomp.to_i
+  case input
     when 1
       puts 'List of all books:-'
     when 2
@@ -47,7 +63,8 @@ class App
     when 12
       puts 'create a game:'
     when 13
-      Exit
+      puts 'Thanks for using our app'
+      exit
     else
       'Put an option between 1 to 13'
     end
