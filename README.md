@@ -182,13 +182,12 @@ Example:
 
 👤 **Kenny Egun**
 
-- [GitHub:](https://github.com/)
-- [Twitter:](https://twitter.com/)
-- [LinkedIn:](https://www.linkedin.com/in/)
+- [GitHub:](https://github.com/kennyegun24)
+- [LinkedIn:](https://www.linkedin.com/in/kennyegun)
 
 👤 **Tanusri Ghosh**
 
-- [GitHub:](https://github.com/chuaindia)
+- [GitHub:] https://github.com/chuaindia
 - [Twitter:] https://twitter.com/chuaghosh@
 - [LinkedIn:] https://linkedin.com/in/tanusrighosh
 
@@ -202,7 +201,6 @@ Example:
 
 - [ ] **Remove a selected Book**
 - [ ] **Add genre to selected Books**
-- [ ] **unit tests**
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
