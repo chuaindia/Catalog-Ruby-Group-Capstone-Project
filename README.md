@@ -202,7 +202,6 @@ Example:
 
 - [ ] **Remove a selected Book**
 - [ ] **Add genre to selected Books**
-- [ ] **unit tests**
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
