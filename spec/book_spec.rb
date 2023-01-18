@@ -22,15 +22,15 @@ describe 'Testing of book' do
     good_cover = 'good'
     bad_cover = 'bad'
 
-    book1 = Book.new(spec_publisher, good_cover, old_date)
-    book2 = Book.new(spec_publisher, good_cover, new_date)
-    book3 = Book.new(spec_publisher, bad_cover, old_date)
-    book4 = Book.new(spec_publisher, bad_cover, new_date)
+    book_spec1 = Book.new(spec_publisher, good_cover, old_date)
+    book_spec2 = Book.new(spec_publisher, good_cover, new_date)
+    book_spec3 = Book.new(spec_publisher, bad_cover, old_date)
+    book_spec4 = Book.new(spec_publisher, bad_cover, new_date)
 
-    expect(book1.can_be_archived?).to eq(false)
-    expect(book2.can_be_archived?).to eq(false)
-    expect(book3.can_be_archived?).to eq(true)
-    expect(book4.can_be_archived?).to eq(true)
+    expect(book_spec1.can_be_archived?).to eq(false)
+    expect(book_spec2.can_be_archived?).to eq(false)
+    expect(book_spec3.can_be_archived?).to eq(true)
+    expect(book_spec4.can_be_archived?).to eq(true)
   end
 
   it 'Testing of the add_label method' do
