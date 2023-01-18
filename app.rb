@@ -14,6 +14,7 @@ class App
     list_of_books_stored
     list_of_labels_stored
     list_of_albums_stored
+    list_of_genres_stored
   end
 
   def menu
@@ -94,7 +95,7 @@ class App
     end
     genresJson = JSON.generate(genreJson)
     File.write('genre.json', genresJson)
-    #    menu
+       menu
   end
 
   def list_of_albums_stored
@@ -119,10 +120,33 @@ class App
         puts "\n on_spotify: #{album.on_spotify} | Publish date: #{album.publish_date}\n"
       end
     end
-    #    menu
+       menu
   end
 
-  
+  def list_of_genres_stored
+    if File.exist?('genre.json') && !File.zero?('genre.json')
+      genrefile = File.open('genre.json')
+      genreJson = genrefile.read
+      JSON.parse(genreJson).map do |genre|
+        genresjson = Genre.new(genre['name'])
+        @genre << genresjson
+      end
+      genrefile.close
+    else
+      File.new('genre.json', 'w')
+    end
+  end
+
+  def list_of_all_genres
+    if @genre.empty?
+      puts "\n No album are available"
+    else
+      @genre.each do |genre|
+        puts "\n name: #{genre.name}\n"
+      end
+    end
+       menu
+  end
 
   def create_a_book
     puts "\nEnter Publisher Name:\n"
