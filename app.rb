@@ -69,7 +69,7 @@ class App
     on_spotify = gets.chomp
     puts "\nWhat is the release date?\n"
     on_publish_date = gets.chomp
-    music = MusicAlbum.new(on_spotify,on_publish_date)
+    music = MusicAlbum.new(on_spotify, on_publish_date)
     @music << music
     puts "\nAdd a genre? ---- Enter 1 for 'YES' and 2 for 'NO'\n"
     option = gets.chomp.to_i
@@ -83,28 +83,28 @@ class App
   end
 
   def save_all_albums_genres
-    albumjson = []
+    album_json = []
     @music.each do |albums|
-      albumjson << { on_spotify: albums.on_spotify, publish_date: albums.publish_date }
+      album_json << { on_spotify: albums.on_spotify, publish_date: albums.publish_date }
     end
-    albumsJson = JSON.generate(albumjson)
-    File.write('albums.json', albumsJson)
-    genreJson = []
+    albums_json = JSON.generate(album_json)
+    File.write('albums.json', albums_json)
+    genre_json = []
     @genre.each do |genre|
-      genreJson << { name: genre.name }
+      genre_json << { name: genre.name }
     end
-    genresJson = JSON.generate(genreJson)
-    File.write('genre.json', genresJson)
-       menu
+    genres_json = JSON.generate(genre_json)
+    File.write('genre.json', genres_json)
+    menu
   end
 
   def list_of_albums_stored
     if File.exist?('albums.json') && !File.zero?('albums.json')
       albumFile = File.open('albums.json')
-      albumJson = albumFile.read
-      JSON.parse(albumJson).map do |album|
-        albumsJson = MusicAlbum.new(album['on_spotify'], album['publish_date'])
-        @music << albumsJson
+      album_json = albumFile.read
+      JSON.parse(album_json).map do |album|
+        albums_json = MusicAlbum.new(album['on_spotify'], album['publish_date'])
+        @music << albums_json
       end
       albumFile.close
     else
@@ -120,16 +120,16 @@ class App
         puts "\n on_spotify: #{album.on_spotify} | Publish date: #{album.publish_date}\n"
       end
     end
-       menu
+    menu
   end
 
   def list_of_genres_stored
     if File.exist?('genre.json') && !File.zero?('genre.json')
       genrefile = File.open('genre.json')
-      genreJson = genrefile.read
-      JSON.parse(genreJson).map do |genre|
-        genresjson = Genre.new(genre['name'])
-        @genre << genresjson
+      genre_json = genrefile.read
+      JSON.parse(genre_json).map do |genre|
+        genres_json = Genre.new(genre['name'])
+        @genre << genres_json
       end
       genrefile.close
     else
@@ -145,7 +145,7 @@ class App
         puts "\n name: #{genre.name}\n"
       end
     end
-       menu
+    menu
   end
 
   def create_a_book
