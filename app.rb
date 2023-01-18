@@ -1,5 +1,7 @@
 require_relative 'book'
 require_relative 'label'
+require_relative 'music_album'
+require_relative 'genre'
 
 require 'json'
 
@@ -7,8 +9,12 @@ class App
   def initialize
     @books = []
     @labels = []
+    @music = []
+    @genre = []
     list_of_books_stored
     list_of_labels_stored
+    list_of_albums_stored
+    list_of_genres_stored
   end
 
   def menu
@@ -56,6 +62,90 @@ class App
     when 9
       create_a_game
     end
+  end
+
+  def create_a_music_album
+    puts "\nEnter if its on spotify Name:\n"
+    on_spotify = gets.chomp
+    puts "\nWhat is the release date?\n"
+    on_publish_date = gets.chomp
+    music = MusicAlbum.new(on_spotify, on_publish_date)
+    @music << music
+    puts "\nAdd a genre? ---- Enter 1 for 'YES' and 2 for 'NO'\n"
+    option = gets.chomp.to_i
+    if option == 1
+      puts "\nEnter name of the genre\n"
+      name = gets.chomp
+      genre = Genre.new(name)
+      @genre << genre
+    end
+    save_all_albums_genres
+  end
+
+  def save_all_albums_genres
+    album_json = []
+    @music.each do |albums|
+      album_json << { on_spotify: albums.on_spotify, publish_date: albums.publish_date }
+    end
+    albums_json = JSON.generate(album_json)
+    File.write('albums.json', albums_json)
+    genre_json = []
+    @genre.each do |genre|
+      genre_json << { name: genre.name }
+    end
+    genres_json = JSON.generate(genre_json)
+    File.write('genre.json', genres_json)
+    menu
+  end
+
+  def list_of_albums_stored
+    if File.exist?('albums.json') && !File.zero?('albums.json')
+      album_file = File.open('albums.json')
+      album_json = album_file.read
+      JSON.parse(album_json).map do |album|
+        albums_json = MusicAlbum.new(album['on_spotify'], album['publish_date'])
+        @music << albums_json
+      end
+      album_file.close
+    else
+      File.new('albums.json', 'w')
+    end
+  end
+
+  def list_of_all_music_albums
+    if @music.empty?
+      puts "\n No album are available"
+    else
+      @music.each do |album|
+        puts "\n on_spotify: #{album.on_spotify} | Publish date: #{album.publish_date}\n"
+      end
+    end
+    menu
+  end
+
+  def list_of_genres_stored
+    if File.exist?('genre.json') && !File.zero?('genre.json')
+      genre_file = File.open('genre.json')
+      genre_json = genre_file.read
+      JSON.parse(genre_json).map do |genre|
+        genres_json = Genre.new(genre['name'])
+        @genre << genres_json
+      end
+      genre_file.close
+    else
+      File.new('genre.json', 'w')
+    end
+  end
+
+  def list_of_all_genres
+    if @genre.empty?
+      puts "\n No album are available"
+    else
+      @genre.each do |genre|
+        puts "\n name: #{genre.name}\n"
+      end
+    end
+    menu
   end
 
   def create_a_book
