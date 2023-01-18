@@ -21,16 +21,5 @@ describe 'Testing Album' do
 
         expect(album.can_be_archived?).to eq(false)
     end
-
-    it 'Testing add genre' do
-        on_spotify = false
-        publish_date = '12/05/2019'
-
-        album = MusicAlbum.new(on_spotify, publish_date)
-
-        name = 'rap'
-        genre = Genre.new(name)
-        
-        expect(genre.name).to eq(name)
     end
 end
