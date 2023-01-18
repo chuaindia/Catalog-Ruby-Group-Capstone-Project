@@ -100,13 +100,13 @@ class App
 
   def list_of_albums_stored
     if File.exist?('albums.json') && !File.zero?('albums.json')
-      albumFile = File.open('albums.json')
-      album_json = albumFile.read
+      album_file = File.open('albums.json')
+      album_json = album_file.read
       JSON.parse(album_json).map do |album|
         albums_json = MusicAlbum.new(album['on_spotify'], album['publish_date'])
         @music << albums_json
       end
-      albumFile.close
+      album_file.close
     else
       File.new('albums.json', 'w')
     end
@@ -125,13 +125,13 @@ class App
 
   def list_of_genres_stored
     if File.exist?('genre.json') && !File.zero?('genre.json')
-      genrefile = File.open('genre.json')
-      genre_json = genrefile.read
+      genre_file = File.open('genre.json')
+      genre_json = genre_file.read
       JSON.parse(genre_json).map do |genre|
         genres_json = Genre.new(genre['name'])
         @genre << genres_json
       end
-      genrefile.close
+      genre_file.close
     else
       File.new('genre.json', 'w')
     end
