@@ -18,4 +18,15 @@ CREATE TABLE author(
   first_name VARCHAR(100),
   last_name VARCHAR(100)
   items ARRAY
-)
+);
+
+CREATE TABLE album (
+  id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+  on_spotify BOOLEAN
+  publish_date DATE
+);
+
+CREATE TABLE genre (
+  id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+  name VARCHAR(150)
+);
