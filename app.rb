@@ -19,7 +19,7 @@ class App
     list_of_labels_stored
     list_of_albums_stored
     list_of_genres_stored
-    list_of_game_stored
+    list_of_games_stored
   end
 
   def menu
