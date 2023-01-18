@@ -1,5 +1,6 @@
 require_relative 'book'
 require_relative 'label'
+require_relative 'game'
 
 require 'json'
 
@@ -7,8 +8,10 @@ class App
   def initialize
     @books = []
     @labels = []
+    @games = []
     list_of_books_stored
     list_of_labels_stored
+    lst_of_game_stored
   end
 
   def menu
@@ -110,6 +113,20 @@ class App
     end
   end
 
+  # def list_of_games_stored
+  #   if File.exist?('games.json') && !File.zero?('games.json')
+  #     gamefile = File.open('games.json')
+  #     gamejson = gamefile.read
+  #     JSON.parse(gamejson).map do |game|
+  #       gamesjson = Game.new(game['multiplayer'], game['last_played_at'], game['publish_date'])
+  #       @games << gamesjson
+  #     end
+  #     gamefile.close
+  #   else
+  #     File.new('games.json', 'w')
+  #   end
+  # end
+
   def list_of_all_books
     if @books.empty?
       puts "\n No books are available"
@@ -128,6 +145,46 @@ class App
       @labels.each { |label| puts "\nLabel name: #{label.title}| color: #{label.color}\n" }
     end
     #    menu
+  end
+
+  def list_of_all_games
+    if @games.empty?
+      puts "\n No games are available"
+    else
+      @games.each do |game|
+        puts "\nMultiplayer: #{game.multiplayer}| Last played at: #{game.last_played_at}| Date of Publication: #{game.publish_date}\n"
+      end
+    end
+  end
+
+  def list_of_all_authors
+    if @authors.empty?
+      puts "\n No authors are available"
+    else
+      @authors.each { |author| puts "\nFirst Name: #{author.first_name}| Last Name: #{author.last_name}\n" }
+    end
+  end
+
+  def create_a_game
+    puts "\nEnter Multiplayer:\n"
+    multiplayer = gets.chomp
+    puts "\nEnter Last played at:\n"
+    last_played_at = gets.chomp
+    puts "\nGive date of publication in dd/mm/yyyy format \n"
+    publish_date = gets.chomp
+    game = Game.new(multiplayer, last_played_at, publish_date)
+    @games << game
+    puts "\nWant to add a game? ---- Enter 1 for 'YES' and 2 for 'NO'\n"
+    option = gets.chomp.to_i
+    if option == 1
+      puts "\nEnter the First Name of the Author:\n"
+      first_name = gets.chomp
+      puts "\nEnter the Last Name of the Author:\n"
+      last_name = gets.chomp
+      author = Author.new(first_name, last_name)
+      @authors << author  
+    end
+    # save_all_authors_games
   end
 
   def list_of_labels_stored
