@@ -1,20 +1,16 @@
-require_relative './item'
-
+require_relative 'item'
 class Book < Item
-  attr_reader publisher, :cover_state, :id, :archived
+  attr_accessor :publisher, :cover_state, :publish_date
 
-  def initialize(id, publisher, cover_state, publish_date, archived)
-    super(publish_date, id, archived: archived)
-    @id = Random.rand(1..100)
+  alias can_be can_be_archived?
+
+  def initialize(publisher, cover_state, publish_date, id = Random.rand(1..100))
+    super(publish_date, id)
     @publisher = publisher
     @cover_state = cover_state
   end
 
   def can_be_archived?
-    if super || cover_state == 'bad'
-      true
-    else
-      false
-    end
+    @cover_state == 'bad' || can_be
   end
 end
