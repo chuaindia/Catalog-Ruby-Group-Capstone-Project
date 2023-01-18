@@ -14,13 +14,12 @@ class App
     @music = []
     @genre = []
     @games = []
-    
+
     list_of_books_stored
     list_of_labels_stored
     list_of_albums_stored
     list_of_genres_stored
     list_of_game_stored
-
   end
 
   def menu
