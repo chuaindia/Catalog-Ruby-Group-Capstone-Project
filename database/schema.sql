@@ -13,3 +13,9 @@ CREATE TABLE labels (
   color VARCHAR(100)
 );
 
+CREATE TABLE author(
+  id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+  first_name VARCHAR(100),
+  last_name VARCHAR(100)
+  items ARRAY
+)
