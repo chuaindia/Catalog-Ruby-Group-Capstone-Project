@@ -1,5 +1,7 @@
 require_relative 'book'
 require_relative 'label'
+require_relative 'music_album'
+require_relative 'genre'
 
 require 'json'
 
@@ -7,8 +9,11 @@ class App
   def initialize
     @books = []
     @labels = []
+    @music = []
+    @genre = []
     list_of_books_stored
     list_of_labels_stored
+    list_of_albums_stored
   end
 
   def menu
@@ -57,6 +62,67 @@ class App
       create_a_game
     end
   end
+
+  def create_a_music_album
+    puts "\nEnter if its on spotify Name:\n"
+    on_spotify = gets.chomp
+    puts "\nWhat is the release date?\n"
+    on_publish_date = gets.chomp
+    music = MusicAlbum.new(on_spotify,on_publish_date)
+    @music << music
+    puts "\nAdd a genre? ---- Enter 1 for 'YES' and 2 for 'NO'\n"
+    option = gets.chomp.to_i
+    if option == 1
+      puts "\nEnter name of the genre\n"
+      name = gets.chomp
+      genre = Genre.new(name)
+      @genre << genre
+    end
+    save_all_albums_genres
+  end
+
+  def save_all_albums_genres
+    albumjson = []
+    @music.each do |albums|
+      albumjson << { on_spotify: albums.on_spotify, publish_date: albums.publish_date }
+    end
+    albumsJson = JSON.generate(albumjson)
+    File.write('albums.json', albumsJson)
+    genreJson = []
+    @genre.each do |genre|
+      genreJson << { name: genre.name }
+    end
+    genresJson = JSON.generate(genreJson)
+    File.write('genre.json', genresJson)
+    #    menu
+  end
+
+  def list_of_albums_stored
+    if File.exist?('albums.json') && !File.zero?('albums.json')
+      albumFile = File.open('albums.json')
+      albumJson = albumFile.read
+      JSON.parse(albumJson).map do |album|
+        albumsJson = MusicAlbum.new(album['on_spotify'], album['publish_date'])
+        @music << albumsJson
+      end
+      albumFile.close
+    else
+      File.new('albums.json', 'w')
+    end
+  end
+
+  def list_of_all_music_albums
+    if @music.empty?
+      puts "\n No album are available"
+    else
+      @music.each do |album|
+        puts "\n on_spotify: #{album.on_spotify} | Publish date: #{album.publish_date}\n"
+      end
+    end
+    #    menu
+  end
+
+  
 
   def create_a_book
     puts "\nEnter Publisher Name:\n"
