@@ -104,7 +104,6 @@ class App
     end
     genres_json = JSON.generate(genre_json)
     File.write('genre.json', genres_json)
-    # menu
   end
 
   def list_of_albums_stored
@@ -129,7 +128,6 @@ class App
         puts "\n on_spotify: #{album.on_spotify} | Publish date: #{album.publish_date}\n"
       end
     end
-    # menu
     menu
   end
 
@@ -156,7 +154,6 @@ class App
       end
     end
     menu
-    # menu
   end
 
   def create_a_book
@@ -223,7 +220,6 @@ class App
     else
       File.new('games.json', 'w')
     end
-    # menu
   end
 
   def list_of_authors_stored
@@ -238,7 +234,6 @@ class App
     else
       File.new('authors.json', 'w')
     end
-    # menu
   end
 
   def list_of_all_books
@@ -259,7 +254,6 @@ class App
     else
       @labels.each { |label| puts "\nLabel name: #{label.title}| color: #{label.color}\n" }
     end
-    # menu
     menu
   end
 
