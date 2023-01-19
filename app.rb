@@ -14,12 +14,14 @@ class App
     @music = []
     @genre = []
     @games = []
+    @authors = []
 
     list_of_books_stored
     list_of_labels_stored
     list_of_albums_stored
     list_of_genres_stored
     list_of_games_stored
+    list_of_authors_stored
   end
 
   def menu
@@ -41,8 +43,7 @@ class App
       select(action)
     elsif action == 10
       puts 'Thanks for visiting our App'
-    else
-      menu
+      exit
     end
   end
 
@@ -66,6 +67,8 @@ class App
       create_a_music_album
     when 9
       create_a_game
+    when 10
+      exit
     end
   end
 
@@ -85,6 +88,7 @@ class App
       @genre << genre
     end
     save_all_albums_genres
+    menu
   end
 
   def save_all_albums_genres
@@ -100,7 +104,7 @@ class App
     end
     genres_json = JSON.generate(genre_json)
     File.write('genre.json', genres_json)
-    menu
+    # menu
   end
 
   def list_of_albums_stored
@@ -125,6 +129,7 @@ class App
         puts "\n on_spotify: #{album.on_spotify} | Publish date: #{album.publish_date}\n"
       end
     end
+    # menu
     menu
   end
 
@@ -151,6 +156,7 @@ class App
       end
     end
     menu
+    # menu
   end
 
   def create_a_book
@@ -173,6 +179,7 @@ class App
       @labels << label
     end
     save_all_labels_books
+    menu
   end
 
   def save_all_labels_books
@@ -204,19 +211,35 @@ class App
     end
   end
 
-  # def list_of_games_stored
-  #   if File.exist?('games.json') && !File.zero?('games.json')
-  #     gamefile = File.open('games.json')
-  #     gamejson = gamefile.read
-  #     JSON.parse(gamejson).map do |game|
-  #       gamesjson = Game.new(game['multiplayer'], game['last_played_at'], game['publish_date'])
-  #       @games << gamesjson
-  #     end
-  #     gamefile.close
-  #   else
-  #     File.new('games.json', 'w')
-  #   end
-  # end
+  def list_of_games_stored
+    if File.exist?('games.json') && !File.zero?('games.json')
+      gamefile = File.open('games.json')
+      gamejson = gamefile.read
+      JSON.parse(gamejson).map do |game|
+        gamesjson = Game.new(game['multiplayer'], game['last_played_at'], game['publish_date'])
+        @games << gamesjson
+      end
+      gamefile.close
+    else
+      File.new('games.json', 'w')
+    end
+    # menu
+  end
+
+  def list_of_authors_stored
+    if File.exist?('authors.json') && !File.zero?('games.json')
+      author_file = File.open('authors.json')
+      author_json = author_file.read
+      JSON.parse(author_json).map do |auth|
+        authorsjson = Author.new(auth['first_name'], auth['last_name'])
+        @authors << authorsjson
+      end
+      author_file.close
+    else
+      File.new('authors.json', 'w')
+    end
+    # menu
+  end
 
   def list_of_all_books
     if @books.empty?
@@ -226,6 +249,8 @@ class App
         puts "\nPublisher: #{book.publisher} | Cover: #{book.cover_state} | Date of Publication: #{book.publish_date}\n"
       end
     end
+    # menu
+    menu
   end
 
   def list_of_all_labels
@@ -234,6 +259,8 @@ class App
     else
       @labels.each { |label| puts "\nLabel name: #{label.title}| color: #{label.color}\n" }
     end
+    # menu
+    menu
   end
 
   def list_of_all_games
@@ -244,6 +271,7 @@ class App
         puts "\nMultiplayer: #{game.multiplayer}| Last played at: #{game.last_played_at}| Date of Publication: #{game.publish_date}\n"
       end
     end
+    menu
   end
 
   def list_of_all_authors
@@ -254,6 +282,23 @@ class App
         puts "\nFirst Name: #{author.first_name}| Last Name: #{author.last_name}\n"
       end
     end
+    menu
+  end
+
+  def save_all_the_games_and_authors
+    gamejson = []
+    @games.each do |game|
+      gamejson << { multiplayer: game.multiplayer, last_played_at: game.last_played_at, publish_date: game.publish_date }
+    end
+    gamesjson = JSON.generate(gamejson)
+    File.write('games.json', gamesjson)
+
+    authorjson = []
+    @authors.each do |author|
+      authorjson << { first_name: author.first_name, last_name: author.last_name }
+    end
+    authorsjson = JSON.generate(authorjson)
+    File.write('authors.json', authorsjson)
   end
 
   def create_a_game
@@ -276,7 +321,8 @@ class App
     author = Author.new(first_name, last_name)
     @authors << author
 
-    # save_all_authors_games
+    menu
+    save_all_the_games_and_authors
   end
 
   def list_of_labels_stored
